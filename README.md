@@ -121,11 +121,11 @@ export JAVA_HOME="/usr/lib/jvm/java-7-oracle"
     </property>
     <property>
         <name>dfs.name.dir</name>
-        <value>file:///home/embat/hadoop/hadoopinfra/hdfs/namenode </value>
+        <value>file:///home/embat/tmp/hadoop/hadoopinfra/hdfs/namenode </value>
     </property>
     <property>
         <name>dfs.data.dir</name>
-        <value>file:///home/embat/hadoop/hadoopinfra/hdfs/datanode </value>
+        <value>file:///home/embat/tmp/hadoop/hadoopinfra/hdfs/datanode </value>
     </property>
 </configuration>
 ```
