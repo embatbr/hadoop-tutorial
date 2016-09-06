@@ -9,13 +9,13 @@ If it doesn't exist, create a RSA key to SSH:
 
 ```
 $ ssh-keygen -t rsa
-$ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
-$ chmod 0600 ~/.ssh/authorized_keys
+$ cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys
+$ chmod 0600 $HOME/.ssh/authorized_keys
 ```
 
 ### Setting Java
 
-Add the following to `~/.bashrc`:
+Add the following to `$HOME/.bashrc`:
 
 ```
 export JAVA_HOME=/usr/lib/jvm/java-7-oracle
@@ -27,17 +27,17 @@ export PATH=$PATH:$JAVA_HOME/bin
 Download the newest version of Hadoop (in this case `2.7.3`):
 
 ```
-$ cd ~/data/programs
+$ cd $HOME/apps
 $ wget http://mirror.nbtelecom.com.br/apache/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz
 $ tar xzf hadoop-2.7.3.tar.gz
 ```
 
 ### Install in local/standalone mode
 
-Add the following lines to **~/.bashrc**:
+Add the following lines to **$HOME/.bashrc**:
 
 ```
-export HADOOP_HOME="~/data/programs/hadoop-2.7.3"
+export HADOOP_HOME="$HOME/apps/hadoop-2.7.3"
 export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
 ```
 
@@ -52,10 +52,10 @@ Test the example **WordCount** running the script **run_examples.sh**.
 
 ### Install in pseudo distributed mode
 
-In **~/.bashrc**, replace
+In **$HOME/.bashrc**, replace
 
 ```
-export HADOOP_HOME="~/data/programs/hadoop-2.7.3"
+export HADOOP_HOME="$HOME/apps/hadoop-2.7.3"
 export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
 ```
 
@@ -63,7 +63,7 @@ by
 
 ```
 hadoop_installation_mode="pseudo-distributed"
-export HADOOP_HOME="$HOME/data/programs/hadoop-2.7.3"
+export HADOOP_HOME="$HOME/apps/hadoop-2.7.3"
 
 if [ "$hadoop_installation_mode" == "pseudo-distributed" ]; then
     export HADOOP_MAPRED_HOME=$HADOOP_HOME
