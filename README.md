@@ -5,15 +5,6 @@ Following the tutorial from [tutorialspoint](http://www.tutorialspoint.com/hadoo
 
 ## Enviornment Setup
 
-Create an user named **hadoop**, with password **hadoop**.
-
-```
-$ sudo su
-# adduser hadoop
-```
-
-### Create user `hadoop`
-
 If it doesn't exist, create a RSA key to SSH:
 
 ```
