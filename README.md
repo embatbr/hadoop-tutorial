@@ -80,7 +80,7 @@ export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
 
 #### Configuration
 
-In file **$HADOOP_HOME/etc/hadoop/hadoop-env.sh**, replace
+Go to directory **$HADOOP_HOME/etc/hadoop**. In the file **hadoop-env.sh**, replace
 
 ```
 export JAVA_HOME=${JAVA_HOME}
@@ -91,6 +91,8 @@ by
 ```
 export JAVA_HOME="/usr/lib/jvm/java-7-oracle"
 ```
+
+Still in this directory, replace any content from the following files with the ones presented.
 
 ##### core-site.xml
 
