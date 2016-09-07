@@ -3,80 +3,48 @@
 Following the tutorial from [tutorialspoint](http://www.tutorialspoint.com/hadoop/).
 
 
-## Enviornment Setup
+## Pre-installation
 
-If it doesn't exist, create a RSA key to SSH:
+If Java is not set, add the following lines to `$HOME/.bashrc`:
 
-```
-$ ssh-keygen -t rsa
-$ cat $HOME/.ssh/id_rsa.pub >> $HOME/.ssh/authorized_keys
-$ chmod 0600 $HOME/.ssh/authorized_keys
-```
-
-### Setting Java
-
-Add the following to `$HOME/.bashrc`:
-
-```
+```bash
 export JAVA_HOME=/usr/lib/jvm/java-7-oracle
 export PATH=$PATH:$JAVA_HOME/bin
 ```
 
-### Download Hadoop
+Add the line
 
-Download the newest version of Hadoop (in this case `2.7.3`):
-
-```
-$ cd $HOME/apps
-$ wget http://mirror.nbtelecom.com.br/apache/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz
-$ tar xzf hadoop-2.7.3.tar.gz
+```bash
+source $HOME/apps/hadoop/bashrc_import.sh
 ```
 
-### Install in local/standalone mode
+to *~/.bashrc* but don't "source" it yet. The installation script will create this file.
 
-Add the following lines to **$HOME/.bashrc**:
 
-```
-export HADOOP_HOME="$HOME/apps/hadoop-2.7.3"
-export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
-```
+## Standalone mode
 
-and check if Hadoop is installed typing `hadoop version`. There's no daemons running and everything executes in a single JVM. Create an input directory in any place and fill it with mock text files:
+### Installing
 
 ```
-$ mkdir input
-$ cp $HADOOP_HOME/*.txt input
+$ ./install_standalone_mode.sh
 ```
 
-Test the example **WordCount** running the script **run_examples.sh**.
-
-### Install in pseudo distributed mode
-
-In **$HOME/.bashrc**, replace
+### Running
 
 ```
-export HADOOP_HOME="$HOME/apps/hadoop-2.7.3"
-export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
+$ ./examples_standalone_mode.sh
 ```
 
-by
+
+## Pseudo-distributed mode
+
+### Installing
 
 ```
-hadoop_installation_mode="pseudo-distributed"
-export HADOOP_HOME="$HOME/apps/hadoop-2.7.3"
-
-if [ "$hadoop_installation_mode" == "pseudo-distributed" ]; then
-    export HADOOP_MAPRED_HOME=$HADOOP_HOME
-    export HADOOP_COMMON_HOME=$HADOOP_HOME
-    export HADOOP_HDFS_HOME=$HADOOP_HOME
-    export YARN_HOME=$HADOOP_HOME
-    export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
-    export HADOOP_INSTALL=$HADOOP_HOME
-    export HADOOP_OPTS="$HADOOP_OPTS -Djava.library.path=$HADOOP_COMMON_LIB_NATIVE_DIR"
-fi
-
-export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
+$ ./install_pseudodistributed_mode.sh
 ```
+
+**OBS: edit lines below**
 
 #### Configuration
 
@@ -104,7 +72,7 @@ Still in this directory, replace any content from the following files with the o
 <configuration>
     <property>
         <name>fs.default.name</name>
-        <value>hdfs://localhost:9000</value>
+        <value>hdfs://localhost:9000/home/embat/tmp/hadoop/storage</value>
    </property>
 </configuration>
 ```
@@ -123,11 +91,11 @@ Still in this directory, replace any content from the following files with the o
     </property>
     <property>
         <name>dfs.name.dir</name>
-        <value>file:///home/embat/tmp/hadoop/hadoopinfra/hdfs/namenode </value>
+        <value>file:///home/embat/tmp/hadoop/infra/hdfs/namenode</value>
     </property>
     <property>
         <name>dfs.data.dir</name>
-        <value>file:///home/embat/tmp/hadoop/hadoopinfra/hdfs/datanode </value>
+        <value>file:///home/embat/tmp/hadoop/infra/hdfs/datanode</value>
     </property>
 </configuration>
 ```
@@ -163,14 +131,14 @@ Still in this directory, replace any content from the following files with the o
 
 #### Verification
 
-##### Name Node setup
+##### 1. Name Node setup
 
 ```
 $ cd ~
 $ hdfs namenode -format
 ```
 
-##### Verifying Hadoop dfs
+##### 2. Hadoop dfs
 
 If ssh is refusing connection, try `sudo apt-get install openssh-server`. Then, type:
 
@@ -178,19 +146,19 @@ If ssh is refusing connection, try `sudo apt-get install openssh-server`. Then, 
 $ start-dfs.sh
 ```
 
-##### Verifying Yarn script
+##### 3. Yarn script
 
 ```
 $ start-yarn.sh
 ```
 
-##### Accessing Hadoop on browser
+##### 4. Accessing Hadoop on browser
 
 ```
 http://localhost:50070/
 ```
 
-##### Verify all applications for cluster
+##### 5. Verify all applications for cluster
 
 ```
 http://localhost:8088/
