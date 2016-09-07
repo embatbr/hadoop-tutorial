@@ -42,16 +42,18 @@ touch $HADOOP_BASH_IMPORT_PATH
 truncate -s 0 $HADOOP_BASH_IMPORT_PATH
 chmod +x $HADOOP_BASH_IMPORT_PATH
 
-echo "export HADOOP_HOME=\"$HADOOP_HOME\"" >> $HADOOP_BASH_IMPORT_PATH
+echo "export HADOOP_HOME=\"\$HADOOP_HOME\"" >> $HADOOP_BASH_IMPORT_PATH
 if [ "$MODE" == "pseudo-distributed" ]; then
-    echo "export HADOOP_MAPRED_HOME=$HADOOP_HOME" >> $HADOOP_BASH_IMPORT_PATH
-    echo "export HADOOP_COMMON_HOME=$HADOOP_HOME" >> $HADOOP_BASH_IMPORT_PATH
-    echo "export HADOOP_HDFS_HOME=$HADOOP_HOME" >> $HADOOP_BASH_IMPORT_PATH
-    echo "export YARN_HOME=$HADOOP_HOME" >> $HADOOP_BASH_IMPORT_PATH
-    echo "export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native" >> $HADOOP_BASH_IMPORT_PATH
-    echo "export HADOOP_INSTALL=$HADOOP_HOME" >> $HADOOP_BASH_IMPORT_PATH
-    echo "export HADOOP_OPTS=\"$HADOOP_OPTS -Djava.library.path=$HADOOP_HOME/lib/native\"" >> $HADOOP_BASH_IMPORT_PATH
+    cat >> $HADOOP_BASH_IMPORT_PATH << EOM
+export HADOOP_MAPRED_HOME="\$HADOOP_HOME"
+export HADOOP_COMMON_HOME="\$HADOOP_HOME"
+export HADOOP_HDFS_HOME="\$HADOOP_HOME"
+export YARN_HOME="\$HADOOP_HOME"
+export HADOOP_COMMON_LIB_NATIVE_DIR="\$HADOOP_HOME/lib/native"
+export HADOOP_INSTALL="\$HADOOP_HOME"
+export HADOOP_OPTS="\$HADOOP_OPTS -Djava.library.path=\$HADOOP_HOME/lib/native"
+EOM
 fi
-echo "export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin" >> $HADOOP_BASH_IMPORT_PATH
+echo "export PATH=\"\$PATH:\$HADOOP_HOME/sbin:\$HADOOP_HOME/bin\"" >> $HADOOP_BASH_IMPORT_PATH
 
-echo "Don't forget to \`source ~/.bashrc\`."
+source $HOME/.bashrc

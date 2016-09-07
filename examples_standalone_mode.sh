@@ -18,5 +18,10 @@ if [ ! -d "output" ]; then
     mkdir -p output
 fi
 
+if [ -d "output/$EXAMPLE" ]; then
+    echo "Cleaning last output"
+    rm -Rf output/$EXAMPLE
+fi
+
 cp $HADOOP_HOME/*.txt input/$EXAMPLE
 hadoop jar $MAPREDUCE_EXAMPLES $EXAMPLE input/$EXAMPLE output/$EXAMPLE
