@@ -3,40 +3,37 @@
 
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-cd $HOME
-
-echo "hdfs namenode -format"
-hdfs namenode -format
-
-# if necessary, do `sudo apt-get install openssh-server`
-echo "start-dfs.sh"
-start-dfs.sh
-
-echo "start-yarn.sh"
-start-yarn.sh
-
-echo "google-chrome http://localhost:50070/"
-google-chrome http://localhost:50070/
-
-echo "google-chrome http://localhost:8088/"
-google-chrome http://localhost:8088/
-
-
 MAPREDUCE_EXAMPLES="$HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.3.jar"
 EXAMPLE="wordcount"
 
-if [ ! -d "input/$EXAMPLE" ]; then
-    mkdir -p input/$EXAMPLE
+echo "Leaving safemode"
+hdfs dfsadmin -safemode leave
+
+hadoop fs -test -d input/$EXAMPLE
+if [ $? != 0 ]; then
+    echo "Creating directory input/$EXAMPLE"
+    hadoop fs -mkdir -p input/$EXAMPLE
 fi
 
-if [ ! -d "output" ]; then
-    mkdir -p output
+hadoop fs -test -d output
+if [ $? != 0 ]; then
+    echo "Creating directory output"
+    hadoop fs -mkdir -p output
 fi
 
-if [ -d "output/$EXAMPLE" ]; then
-    echo "Cleaning last output"
-    rm -Rf output/$EXAMPLE
+hadoop fs -test -d output/$EXAMPLE
+if [ $? == 0 ]; then
+    echo "Cleaning last output for $EXAMPLE"
+    hadoop fs -rm -r -f output/$EXAMPLE
 fi
 
-cp $HADOOP_HOME/*.txt input/$EXAMPLE
+echo "Populating input"
+hadoop fs -put $HADOOP_HOME/*.txt input/$EXAMPLE
+echo "Content of input:"
+hadoop fs -ls input/$EXAMPLE
+
 hadoop jar $MAPREDUCE_EXAMPLES $EXAMPLE input/$EXAMPLE output/$EXAMPLE
+
+echo "Retrieving information..."
+rm -Rf $PROJECT_ROOT/output/$EXAMPLE
+hadoop fs -get output/$EXAMPLE $PROJECT_ROOT/output/$EXAMPLE

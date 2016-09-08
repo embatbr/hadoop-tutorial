@@ -100,4 +100,5 @@ cat >> $CUR_FILE << EOM
 EOM
 echo $CUR_FILE
 
+echo "Run file \`operate_hadoop.sh\` to operate the Hadoop cluster."
 echo "Run file \`examples_pseudo_distributed_mode.sh\` to test Hadoop installation."
