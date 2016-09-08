@@ -22,9 +22,9 @@ HADOOP_VERSION="2.7.3"
 
 echo "Cleaning previous installation"
 if [ -d "./hadoop-$HADOOP_VERSION" ]; then
-    rm -Rf $(readlink $HADOOP_HOME)
+    rm -Rf ./hadoop-$HADOOP_VERSION
 fi
-if [ -L "./hadoop" ]; then
+if [ -L "$HADOOP_HOME" ]; then
     rm -Rf $HADOOP_HOME
 fi
 if [ -f "./hadoop-$HADOOP_VERSION.tar.gz" ]; then
@@ -35,9 +35,15 @@ echo "Downloading Hadoop version $HADOOP_VERSION"
 wget http://mirror.nbtelecom.com.br/apache/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz
 tar xzf hadoop-$HADOOP_VERSION.tar.gz
 rm hadoop-$HADOOP_VERSION.tar.gz
-ln -s hadoop-$HADOOP_VERSION hadoop
+ln -s hadoop-$HADOOP_VERSION $HADOOP_HOME
 
-HADOOP_BASH_IMPORT_PATH="./hadoop/bashrc_import.sh"
+cd $HADOOP_HOME
+
+INSTALL_CFG_FILE="./install.cfg"
+truncate -s 0 $INSTALL_CFG_FILE
+echo "mode=$MODE" >> $INSTALL_CFG_FILE
+
+HADOOP_BASH_IMPORT_PATH="./bashrc_import.sh"
 touch $HADOOP_BASH_IMPORT_PATH
 truncate -s 0 $HADOOP_BASH_IMPORT_PATH
 chmod +x $HADOOP_BASH_IMPORT_PATH

@@ -2,7 +2,25 @@
 
 
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd $PROJECT_ROOT
+
+cd $HOME
+
+echo "hdfs namenode -format"
+hdfs namenode -format
+
+# if necessary, do `sudo apt-get install openssh-server`
+echo "start-dfs.sh"
+start-dfs.sh
+
+echo "start-yarn.sh"
+start-yarn.sh
+
+echo "google-chrome http://localhost:50070/"
+google-chrome http://localhost:50070/
+
+echo "google-chrome http://localhost:8088/"
+google-chrome http://localhost:8088/
+
 
 MAPREDUCE_EXAMPLES="$HADOOP_HOME/share/hadoop/mapreduce/hadoop-mapreduce-examples-2.7.3.jar"
 EXAMPLE="wordcount"

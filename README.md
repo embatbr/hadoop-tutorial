@@ -41,40 +41,9 @@ $ ./examples_standalone_mode.sh
 ### Installing
 
 ```
-$ ./install_pseudodistributed_mode.sh
-```
+$ ./install_pseudo_distributed_mode.sh
 
-### Verification
-
-#### 1. Name Node setup
+### Running
 
 ```
-$ cd ~
-$ hdfs namenode -format
-```
-
-#### 2. Hadoop dfs
-
-If ssh is refusing connection, try `sudo apt-get install openssh-server`. Then, type:
-
-```
-$ start-dfs.sh
-```
-
-#### 3. Yarn script
-
-```
-$ start-yarn.sh
-```
-
-#### 4. Accessing Hadoop on browser
-
-```
-http://localhost:50070/
-```
-
-#### 5. Verify all applications for cluster
-
-```
-http://localhost:8088/
-```
+$ ./examples_pseudo_distributed_mode.sh

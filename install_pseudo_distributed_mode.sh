@@ -100,4 +100,4 @@ cat >> $CUR_FILE << EOM
 EOM
 echo $CUR_FILE
 
-echo "Run file \`examples_pseudodistributed_mode.sh\` to test Hadoop installation."
+echo "Run file \`examples_pseudo_distributed_mode.sh\` to test Hadoop installation."
