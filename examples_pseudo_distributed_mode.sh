@@ -37,3 +37,4 @@ hadoop jar $MAPREDUCE_EXAMPLES $EXAMPLE input/$EXAMPLE output/$EXAMPLE
 echo "Retrieving information..."
 rm -Rf $PROJECT_ROOT/output/$EXAMPLE
 hadoop fs -get output/$EXAMPLE $PROJECT_ROOT/output/$EXAMPLE
+echo "Information available in directory \"$PROJECT_ROOT/output/$EXAMPLE\""

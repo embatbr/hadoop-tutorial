@@ -3,7 +3,10 @@
 
 cd $HOME
 
-read -p "Input the command (format | start | stop): " CMD
+CMD="$1"
+if [ -z "$CMD" ]; then
+    read -p "Input the command (format | start | stop): " CMD
+fi
 
 if [ "$CMD" == "format" ]; then
     echo ">> Formatting HDFS"

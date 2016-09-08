@@ -48,7 +48,7 @@ touch $HADOOP_BASH_IMPORT_PATH
 truncate -s 0 $HADOOP_BASH_IMPORT_PATH
 chmod +x $HADOOP_BASH_IMPORT_PATH
 
-echo "export HADOOP_HOME=\"\$HADOOP_HOME\"" >> $HADOOP_BASH_IMPORT_PATH
+echo "export HADOOP_HOME=\"$HADOOP_HOME\"" >> $HADOOP_BASH_IMPORT_PATH
 if [ "$MODE" == "pseudo-distributed" ]; then
     cat >> $HADOOP_BASH_IMPORT_PATH << EOM
 export HADOOP_MAPRED_HOME="\$HADOOP_HOME"

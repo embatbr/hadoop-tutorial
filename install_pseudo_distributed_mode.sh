@@ -3,10 +3,13 @@
 
 PROJECT_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-$PROJECT_ROOT/install.sh "pseudo-distributed"
+cd $PROJECT_ROOT
+./install.sh "pseudo-distributed"
+
+source $HOME/.bashrc
+echo HADOOP_HOME: $HADOOP_HOME
 
 # editing files in directory $HADOOP_HOME/etc/hadoop
-
 CONFS_DIR="$HADOOP_HOME/etc/hadoop"
 cd $CONFS_DIR
 echo "Configuration of the following files in directory \"$CONFS_DIR\":"
