@@ -3,6 +3,11 @@
 Following the tutorial from [tutorialspoint](http://www.tutorialspoint.com/hadoop/).
 
 
+## Disclaimer
+
+All files to execute examples are not parameterized yet, but just running with the **wordcount** example. This is simple to improve, but I'll do it after some more studying.
+
+
 ## Pre-installation
 
 If Java is not set, add the following lines to `$HOME/.bashrc`:
@@ -42,8 +47,18 @@ $ ./examples_standalone_mode.sh
 
 ```
 $ ./install_pseudo_distributed_mode.sh
+```
 
 ### Running
 
+With the following file you can format you HDFS, start and stop the cluster. Obviously, all simulated, since this is a pseudo distributed Hadoop installation.
+
+```
+$ ./operate_hadoop.sh
+```
+
+To run an example with this installation, just do:
+
 ```
 $ ./examples_pseudo_distributed_mode.sh
+```
